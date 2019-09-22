@@ -1,0 +1,22 @@
+#!/usr/bin/with-contenv bash
+
+CONFIG_PATH=/data/options.json
+SYSTEM_USER=/data/system_user.json
+
+
+ENABLE_REGISTRATIONS=$(jq --raw-output ".logins | length" $CONFIG_PATH)
+MYSQL_HOST=$(jq --raw-output ".MYSQL_HOST" $CONFIG_PATH)
+MYSQL_USERNAME=$(jq --raw-output ".MYSQL_USERNAME" $CONFIG_PATH)
+MYSQL_PASSWORD=$(jq --raw-output ".MYSQL_PASSWORD" $CONFIG_PATH)
+LOGGING=$(bashio::info 'hassio.info.logging' '.logging')
+
+echo "---------------------"
+echo "Migrating database..."
+echo "---------------------"
+
+if [ -z ${TEST_RUN+x} ]; then
+	cd /app/clarkson || exit
+	./flyway/flyway -user="${MYSQL_USERNAME}" \
+		-password="${MYSQL_PASSWORD}" -schemas=clarkson \
+		-url="jdbc:mysql://${MYSQL_HOST}" migrate
+fi

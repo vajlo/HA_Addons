@@ -1,0 +1,38 @@
+{
+    "name": "Clarkson",
+    "version": "0.4",
+    "slug": "clarkson",
+    "description": "Clarkson is a web-based dashboard application that gives you a neat and clean interface for logging your fuel fill-ups for all of your vehicles. The application has full multi-user support, as well as multiple vehicles per user. Whenever you fill-up your car or motorcycle, keep the receipt and record the data in Clarkson.",
+    "webui": "[PROTO:ssl]://[HOST]:[PORT:3000]",
+    "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+    "startup": "before",
+    "boot": "auto",
+    "map": [
+      "ssl"
+    ],
+    "ports": {
+      "3000/tcp": 3000
+     },
+    "ports_description": {
+      "80/tcp": "Web interface"
+    },
+    "options": {
+      "MYSQL_HOST": "192.168.0.252",
+      "MYSQL_USERNAME": "clarkson_user",
+      "MYSQL_PASSWORD": "supersecretpassword",
+      "ENABLE_REGISTRATIONS": false,
+      "ssl": false,
+      "certfile": "fullchain.pem",
+      "keyfile": "privkey.pem"
+     },
+    "schema": {
+      "MYSQL_HOST": "str?",
+      "MYSQL_USERNAME": "str?",
+      "MYSQL_PASSWORD": "str?",
+      "ENABLE_REGISTRATIONS": "bool",
+      "log_level": "match(^(trace|debug|info|notice|warning|error|fatal)$)?",
+      "certfile": "str",
+      "keyfile": "str",
+      "ssl": "bool"
+    } 
+  }
