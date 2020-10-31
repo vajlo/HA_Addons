@@ -79,7 +79,7 @@ RUN \
 #RUN mkdir -p /var/log/nginx && ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Copy root filesystem
-COPY rootfs /
+#COPY rootfs /
 
 # Build arguments
 ARG BUILD_ARCH
